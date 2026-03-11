@@ -1,0 +1,97 @@
+---
+import '@fontsource-variable/newsreader';
+import '@fontsource-variable/jetbrains-mono';
+import '../styles/global.css';
+import '../styles/prose.css';
+import '../styles/transitions.css';
+
+import SEOHead from '../components/common/SEOHead.astro';
+import SkipLink from '../components/common/SkipLink.astro';
+import Header from '../components/common/Header.astro';
+import Footer from '../components/common/Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  canonicalUrl?: string;
+  type?: 'website' | 'article';
+  publishedAt?: string;
+  updatedAt?: string;
+  author?: string;
+  section?: string;
+  tags?: string[];
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const {
+  title,
+  description,
+  image,
+  canonicalUrl,
+  type = 'website',
+  publishedAt,
+  updatedAt,
+  author,
+  section,
+  tags,
+  jsonLd,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="generator" content={Astro.generator} />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://use.typekit.net" crossorigin />
+  <link rel="preconnect" href="https://p.typekit.net" crossorigin />
+  <link rel="preload" href="https://use.typekit.net/cad0vcl.css" as="style" />
+  <link rel="stylesheet" href="https://use.typekit.net/cad0vcl.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  {import.meta.env.PUBLIC_ADSENSE_PUB_ID && (
+    <script
+      async
+      src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${import.meta.env.PUBLIC_ADSENSE_PUB_ID}`}
+      crossorigin="anonymous"
+    />
+  )}
+  <SEOHead
+    title={title}
+    description={description}
+    image={image}
+    canonicalUrl={canonicalUrl}
+    type={type}
+    publishedAt={publishedAt}
+    updatedAt={updatedAt}
+    author={author}
+    section={section}
+    tags={tags}
+    jsonLd={jsonLd}
+  />
+  {import.meta.env.PROD && import.meta.env.PUBLIC_CLARITY_ID && (
+    <script type="text/javascript" define:vars={{ clarityId: import.meta.env.PUBLIC_CLARITY_ID }}>
+      (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window,document,"clarity","script",clarityId);
+    </script>
+  )}
+  <script>
+    import { initSentry } from '../lib/sentry';
+    initSentry();
+  </script>
+</head>
+<body class="min-h-screen flex flex-col bg-background text-text-primary font-sans antialiased">
+  <SkipLink />
+  <Header />
+  <main id="main-content" class="flex-1">
+    <slot />
+  </main>
+  <Footer />
+</body>
+</html>

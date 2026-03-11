@@ -1,0 +1,26 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  color: string;
+  postCount: number;
+}
+
+const { title, description, color, postCount } = Astro.props;
+---
+
+<header class="mb-10">
+  <!-- Category accent line -->
+  <div class="h-[3px]" style={`background-color: ${color}`}></div>
+
+  <h1 class="text-4xl lg:text-6xl font-semibold text-text-primary leading-[1.1] mt-5">
+    {title}
+  </h1>
+
+  <p class="text-text-secondary text-lg lg:text-xl max-w-2xl leading-relaxed mt-3">
+    {description}
+  </p>
+
+  <!-- Bottom rule separator -->
+  <div class="border-t border-border mt-5"></div>
+</header>

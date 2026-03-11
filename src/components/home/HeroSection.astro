@@ -1,0 +1,23 @@
+---
+import Container from '../ui/Container.astro';
+import { SITE } from '../../lib/constants';
+---
+
+<section class="border-b border-border">
+  <Container wide>
+    <div class="grid lg:grid-cols-[3fr_1px_2fr]">
+      <!-- Lead story: occupies left column -->
+      <div class="lg:pr-5 py-5">
+        <slot name="featured" />
+      </div>
+
+      <!-- Vertical rule -->
+      <div class="hidden lg:block bg-border" aria-hidden="true"></div>
+
+      <!-- Sidebar: editorial picks -->
+      <div class="lg:pl-5 py-5 border-t lg:border-t-0 border-border">
+        <slot name="sidebar" />
+      </div>
+    </div>
+  </Container>
+</section>
